@@ -1,5 +1,5 @@
 name: UltimateDispenser
-main: com.selonianth.ultimatedispenser
+main: com.selonianth.ultimatedispenser.ultimatedispenser
 author: Selonianth
 version: 1.0.0
 database: false
