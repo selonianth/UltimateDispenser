@@ -1,0 +1,9 @@
+name: UltimateDispenser
+main: com.selonianth.ultimatedispenser
+author: Selonianth
+version: 1.0.0
+database: false
+commands:
+    udfill:
+        description: Set dispenser being pointed at to autofill with first item in slot.
+        usage: /<command>
