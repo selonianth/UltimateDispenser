@@ -60,7 +60,7 @@ public class UltimateDispenser extends JavaPlugin {
     }
 
     //Read configuration file
-    File configFile = new File(this.getDataFolder();{
+    File configFile = new File(this.getDataFolder(), null);{
     HDConfiguration.CONFIG_FILE_NAME();
     this.hdConfig = HDConfiguration.detectConfiguration(configFile);
     while(this.hdConfig.getVersion() != HDConfiguration.LATEST_CONFIG_VERSION) {
