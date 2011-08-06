@@ -61,14 +61,5 @@ public class UltimateDispenser extends JavaPlugin {
 
     //Read configuration file
     File configFile = new File(this.getDataFolder(), "config.yml");{
-    HDConfiguration.CONFIG_FILE_NAME();
-    this.hdConfig = HDConfiguration.detectConfiguration(configFile);
-    while(this.hdConfig.getVersion() != HDConfiguration.LATEST_CONFIG_VERSION) {
-    HDConfiguration upgraded = this.hdConfig.upgrade();
-    if(upgraded == null) {
-    LOG.warning(LOG_PREFIX + "Unable to upgrade configuration from version "+ this.hdConfig.getVersion() + ".");
-    LOG.warning(LOG_PREFIX +"You may experience some instability. Continuing anyway...");
-    break;
-    }
-    this.hdConfig = upgraded;}
+    	this.hdConfig = new HDConfiguration(configFile);
 }}
