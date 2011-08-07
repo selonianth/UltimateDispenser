@@ -4,8 +4,6 @@ import java.io.File;
 
 import org.bukkit.util.config.Configuration;
 
-import sun.text.normalizer.VersionInfo;
-
 public class HDConfiguration {
 	public static final Object LATEST_CONFIG_VERSION = null;
 	private File file;
@@ -20,13 +18,13 @@ public class HDConfiguration {
 	}
 
 	public String getVersion() {
-		// TODO Auto-generated method stub
+		// Gives Version Number
 	return "1.0.0";
 		}
 
-	public static void CONFIG_FILE_NAME() {
-		// TODO Auto-generated method stub
-		
+	public String CONFIG_FILE_NAME() {
+		// Points at configuration file.
+	  return "config.yml";
 	}
 
 	public boolean write(UltimateDispenser ultimateDispenser) {

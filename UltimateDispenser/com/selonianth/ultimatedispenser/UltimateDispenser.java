@@ -35,7 +35,7 @@ public class UltimateDispenser extends JavaPlugin {
     }
 
  // Command name
-    public static final String COMMAND_NAME = "scratch";
+    public static final String COMMAND_NAME = "ultimatedispenser";
     
     @Override
     public void onEnable() {
