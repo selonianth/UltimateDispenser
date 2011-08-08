@@ -1,9 +1,11 @@
 package com.selonianth.ultimatedispenser;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -72,7 +74,7 @@ public class UltimateDispenser extends JavaPlugin {
         File configFile = new File(this.getDataFolder(), "config.yml");
         this.hdConfig = new HDConfiguration(configFile);
     }
-    
+
  
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         // TODO Auto-generated method stub
@@ -81,15 +83,26 @@ public class UltimateDispenser extends JavaPlugin {
         String subcommand = args[0];
         String[] subargs = new String[args.length - 1];
         for(int i = 0; i < subargs.length; i++) {
-        subargs[i] = args[i + 1];     
-          
-       }
+        subargs[i] = args[i + 1];   } 
         
+       
+
      // Check permission
         if(!this.checkPermission(sender, PERMISSION_ROOT_NAME + "." + subcommand)) {
         sender.sendMessage(ChatColor.RED + "You do not have the necessary permission to run /" + COMMAND_NAME + " " + subcommand);}
 		return false;
         }
+    public Block getTargetBlock(HashSet<Byte> transparent, int maxDistance){
+		return null;
+		
+	     public int getItemTypeId() {
+	    	 if(this.Material.DISPENSER)
+	    		 //If selected block is dispenser command will work.
+	    	 return true;
+	     } else {
+	    	 return false;
+	    	     }
+	}
 
 	public boolean checkPermission(CommandSender sender1, String permission) {
         	if(sender1 instanceof Player) {
@@ -103,5 +116,6 @@ public class UltimateDispenser extends JavaPlugin {
         	// Running from console; always allow
         	return true;
         	}
-        	}
-	}
+
+
+     }}
