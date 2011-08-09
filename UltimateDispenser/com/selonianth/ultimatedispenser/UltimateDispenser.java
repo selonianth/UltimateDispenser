@@ -18,112 +18,124 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 public class UltimateDispenser extends JavaPlugin {
 
-    public HDConfiguration hdConfig;
-    public static final Logger LOG = Logger.getLogger("Minecraft");
-    public static final String LOG_PREFIX = "[UltimateDispenser]";
- // Permissions interface
-    public PermissionHandler permissionHandler;
-    public static final String PERMISSION_ROOT_NAME = "UltimateDispenser";
-    @Override
-    public void onDisable() {
-        // Console message when plugin is disabled.
-        System.out.println("[UltimateDispenser] Disabled");
-    }
+	public HDConfiguration hdConfig;
+	public static final Logger LOG = Logger.getLogger("Minecraft");
+	public static final String LOG_PREFIX = "[UltimateDispenser]";
+	// Permissions interface
+	public PermissionHandler permissionHandler;
+	public static final String PERMISSION_ROOT_NAME = "UltimateDispenser";
 
-    private void writeConfig() {
-        // Save config
-        if (!this.hdConfig.write(this)) {
-            LOG.warning(LOG_PREFIX + "Failed to save configuration file (version " + this.getDescription().getVersion() + "); continuing anyway...");
-        }
-    }
+	@Override
+	public void onDisable() {
+		// Console message when plugin is disabled.
+		System.out.println("[UltimateDispenser] Disabled");
+	}
 
- // Command name
-    public static final String COMMAND_NAME = "ultimatedispenser";
-    
-    @Override
-    public void onEnable() {
-        // Console Message when plugin is enabled.
-        System.out.println("[UltimateDispenser] Enabled");
+	private void writeConfig() {
+		// Save config
+		if (!this.hdConfig.write(this)) {
+			LOG.warning(LOG_PREFIX
+					+ "Failed to save configuration file (version "
+					+ this.getDescription().getVersion()
+					+ "); continuing anyway...");
+		}
+	}
 
-        // Initialize Permissions system
-        this.setupPermissions();
+	// Command name
+	public static final String COMMAND_NAME = "ultimatedispenser";
 
-        LOG.info(LOG_PREFIX + "Version " + this.getDescription().getVersion() + " enabled");
-    }
+	@Override
+	public void onEnable() {
+		// Console Message when plugin is enabled.
+		System.out.println("[UltimateDispenser] Enabled");
 
-    private void setupPermissions() {
-        Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
+		// Initialize Permissions system
+		this.setupPermissions();
 
-        if (this.permissionHandler == null) {
-            if (permissionsPlugin != null) {
-                this.permissionHandler = ((Permissions) permissionsPlugin).getHandler();
-                LOG.info(LOG_PREFIX + "Hooked into Permissions version " + permissionsPlugin.getDescription().getVersion());
-            } else {
-                LOG.info(LOG_PREFIX + "Permissions system not detected; allowing all commands");
-            }
-        }
+		LOG.info(LOG_PREFIX + "Version " + this.getDescription().getVersion()
+				+ " enabled");
+	}
 
-        // Get a configuration
-        this.readConfig();
-    }
+	private void setupPermissions() {
+		Plugin permissionsPlugin = this.getServer().getPluginManager()
+				.getPlugin("Permissions");
 
-    private void readConfig() {
-        // Set up configuration folder
-        this.getDataFolder().mkdirs();
-        
-        // Read configuration file
-        File configFile = new File(this.getDataFolder(), "config.yml");
-        this.hdConfig = new HDConfiguration(configFile);
-    }
+		if (this.permissionHandler == null) {
+			if (permissionsPlugin != null) {
+				this.permissionHandler = ((Permissions) permissionsPlugin)
+						.getHandler();
+				LOG.info(LOG_PREFIX + "Hooked into Permissions version "
+						+ permissionsPlugin.getDescription().getVersion());
+			} else {
+				LOG.info(LOG_PREFIX
+						+ "Permissions system not detected; allowing all commands");
+			}
+		}
 
- 
-    public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-        // Message Shown when Command is used correctly.
-        System.out.println("Dispenser Set to Autofill");
-        
-        // Parse out the command
-        String subcommand = args[0];
-        String[] subargs = new String[args.length - 1];
-        for(int i = 0; i < subargs.length; i++) {
-        subargs[i] = args[i + 1];   } 
-         
-        // Check permission
-        if(!this.checkPermission(sender, PERMISSION_ROOT_NAME + "." + subcommand)) {
-        sender.sendMessage(ChatColor.RED + "You do not have the necessary permission to run /" + COMMAND_NAME + " " + subcommand);}
+		// Get a configuration
+		this.readConfig();
+	}
+
+	private void readConfig() {
+		// Set up configuration folder
+		this.getDataFolder().mkdirs();
+
+		// Read configuration file
+		File configFile = new File(this.getDataFolder(), "config.yml");
+		this.hdConfig = new HDConfiguration(configFile);
+	}
+
+	public boolean onCommand(CommandSender sender, Command command,
+			String commandLabel, String[] args) {
+		// Message Shown when Command is used correctly.
+		System.out.println("Dispenser Set to Autofill");
+
+		// Parse out the command
+		String subcommand = args[0];
+		String[] subargs = new String[args.length - 1];
+		for (int i = 0; i < subargs.length; i++) {
+			subargs[i] = args[i + 1];
+		}
+
+		// Check permission
+		if (!this.checkPermission(sender, PERMISSION_ROOT_NAME + "."
+				+ subcommand)) {
+			sender.sendMessage(ChatColor.RED
+					+ "You do not have the necessary permission to run /"
+					+ COMMAND_NAME + " " + subcommand);
+		}
 		return false;
-        }
-    
-    public Block getTargetBlock(HashSet<Byte> transparent, int maxDistance){
-		return null;}
-		
-    boolean isDispenser(Block block) { 
-        if(getMaterial() == Material.DISPENSER){
-            return true;
-        }else{
-            return false;}
-    }
-		
+	}
+
+	public Block getTargetBlock(HashSet<Byte> transparent, int maxDistance) {
+		return null;
+	}
+
+	boolean isDispenser(Block block) {
+		if (getMaterial() == Material.DISPENSER) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	private Material getMaterial() {
-			// Auto-generated method stub
+		// Auto-generated method stub
 		return null;
 
 	}
 
-
-
 	public boolean checkPermission(CommandSender sender1, String permission) {
-        	if(sender1 instanceof Player) {
-        	if(this.permissionHandler == null) {
-        	// No permissions; allow
-        	return true;
-        	} else {
-        	return this.permissionHandler.has((Player)sender1, permission);
-        	}
-        	} else {
-        	// Running from console; always allow
-        	return true;
-        	}
-	    }
-    }
-     
-	
+		if (sender1 instanceof Player) {
+			if (this.permissionHandler == null) {
+				// No permissions; allow
+				return true;
+			} else {
+				return this.permissionHandler.has((Player) sender1, permission);
+			}
+		} else {
+			// Running from console; always allow
+			return true;
+		}
+	}
+}
