@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,8 +26,8 @@ public class UltimateDispenser extends JavaPlugin {
     public static final String PERMISSION_ROOT_NAME = "UltimateDispenser";
     @Override
     public void onDisable() {
-        // TODO Auto-generated method stub
-        System.out.println("UltimateDispenser Disabled");
+        // Console message when plugin is disabled.
+        System.out.println("[UltimateDispenser] Disabled");
     }
 
     private void writeConfig() {
@@ -41,8 +42,8 @@ public class UltimateDispenser extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        // TODO Auto-generated method stub
-        System.out.println("UltimateDispenser Enabled");
+        // Console Message when plugin is enabled.
+        System.out.println("[UltimateDispenser] Enabled");
 
         // Initialize Permissions system
         this.setupPermissions();
@@ -77,32 +78,38 @@ public class UltimateDispenser extends JavaPlugin {
 
  
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-        // TODO Auto-generated method stub
+        // Message Shown when Command is used correctly.
         System.out.println("Dispenser Set to Autofill");
+        
         // Parse out the command
         String subcommand = args[0];
         String[] subargs = new String[args.length - 1];
         for(int i = 0; i < subargs.length; i++) {
         subargs[i] = args[i + 1];   } 
-        
-       
-
-     // Check permission
+         
+        // Check permission
         if(!this.checkPermission(sender, PERMISSION_ROOT_NAME + "." + subcommand)) {
         sender.sendMessage(ChatColor.RED + "You do not have the necessary permission to run /" + COMMAND_NAME + " " + subcommand);}
 		return false;
         }
+    
     public Block getTargetBlock(HashSet<Byte> transparent, int maxDistance){
-		return null;
+		return null;}
 		
-	     public int getItemTypeId() {
-	    	 if(this.Material.DISPENSER)
-	    		 //If selected block is dispenser command will work.
-	    	 return true;
-	     } else {
-	    	 return false;
-	    	     }
+    boolean isDispenser(Block block) { 
+        if(getMaterial() == Material.DISPENSER){
+            return true;
+        }else{
+            return false;}
+    }
+		
+	private Material getMaterial() {
+			// Auto-generated method stub
+		return null;
+
 	}
+
+
 
 	public boolean checkPermission(CommandSender sender1, String permission) {
         	if(sender1 instanceof Player) {
@@ -116,6 +123,7 @@ public class UltimateDispenser extends JavaPlugin {
         	// Running from console; always allow
         	return true;
         	}
-
-
-     }}
+	    }
+    }
+     
+	
