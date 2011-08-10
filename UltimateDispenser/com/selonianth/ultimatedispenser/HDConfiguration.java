@@ -6,7 +6,9 @@ import org.bukkit.util.config.Configuration;
 
 public class HDConfiguration {
 	public static final Object LATEST_CONFIG_VERSION = null;
+	@SuppressWarnings("unused")
 	private File file;
+	@SuppressWarnings("unused")
 	private Configuration configuration;
 	public  HDConfiguration(File file){
     this.file = file;
