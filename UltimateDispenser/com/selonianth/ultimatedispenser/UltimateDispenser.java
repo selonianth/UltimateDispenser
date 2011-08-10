@@ -102,7 +102,7 @@ public class UltimateDispenser extends JavaPlugin {
             // Return false to say some other plugin can handle this command
             return false;
         }
-    
+	}
     /**
 * If sender is a Player, check the block they are looking at.
 *
@@ -132,7 +132,6 @@ public class UltimateDispenser extends JavaPlugin {
             LOG.info(LOG_PREFIX + "I am not a player.");
         }
     }
-	}
 
 	public boolean checkPermission(CommandSender sender1, String permission) {
 		if (sender1 instanceof Player) {
